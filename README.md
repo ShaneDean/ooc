@@ -16,3 +16,7 @@ study note see [this](./doc/README.md)
 [Phil's guide to object-oriented ANSI C](http://www.bolthole.com/OO-C-programming.html)
 
 [GNOME-GObject](https://developer.gnome.org/gobject/stable/index.html)
+
+# todo
+
+finish exercises , find the example code
