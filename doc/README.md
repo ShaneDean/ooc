@@ -7,6 +7,13 @@
 - 头文件为接口、源文件为实现，多个头文件由一个源文件实现
 - 以 void * 来代替实际类型
 
+## Dynamic Linkage Generic Functions
+
+- 增加 constructor 和 destructor 来让对象自己进行自相关的工作
+-	所有的‘类’的结构体的第一个对象是描述这个‘类’的结构(type description)
+-	**selector** function (dynamic linkage or late binding) : accept arguments of different types and act differently 
+on them based on their types.
+-	多态(Polymorphic) 编译时不决定(overloading)而由运行时决定执行的逻辑(late binding)
 
 # exercise
 
