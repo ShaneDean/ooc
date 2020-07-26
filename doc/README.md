@@ -13,7 +13,19 @@
 -	所有的‘类’的结构体的第一个对象是描述这个‘类’的结构(type description)
 -	**selector** function (dynamic linkage or late binding) : accept arguments of different types and act differently 
 on them based on their types.
--	多态(Polymorphic) 编译时不决定(overloading)而由运行时决定执行的逻辑(late binding)
+-	 ?? (Polymorphic function)   (overloaded function)  
+
+**.r**的文件
+查了下[参考1](https://stackoverflow.com/questions/958671/what-is-a-private-header-in-c),[参考2](https://stackoverflow.com/questions/6061954/what-are-r-files-in-c)，关键信息如下：
+```
+	Circle.h    /* Header file with external interfaces, such as methods. */
+
+	Circle.r    /* Representation file for internal use within the class, such as
+								structs that define the internal states. */
+
+	Circle.c    /* Implementation of the Circle class. */
+```
+
 
 # exercise
 
