@@ -48,3 +48,12 @@ store() writes a description of the object to the file pointer. storev() uses va
 ```
 
 apply() calls action() for each element in set and passes the rest of the argument list. action() must not change set but it may return zero to terminate apply() early. apply() returns true if all elements were processed.
+
+## chapter 2
+To see polymorphic functions in action we need to implement Object and Set with dynamic linkage. This is difficult for Set because we can no longer record in the set elements to which set they belong.
+
+There should be more methods for strings: we need to know the string length, we want to assign a new text value, we should be able to print a string. Things get interesting if we also deal with substrings.
+
+Atoms are much more efficient, if we track them with a hash table. Can the value of an atom be changed? 
+
+String_clone() poses an subtle question: in this function String should be the same value as self −> class. Does it make any difference what we pass to new()?
