@@ -19,4 +19,5 @@ study note see [this](./doc/README.md)
 
 # todo
 
-finish exercises , find the example code
+- finish exercises , find the example code
+- make ppt, share with workmates
