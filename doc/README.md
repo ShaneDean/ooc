@@ -26,6 +26,12 @@ on them based on their types.
 	Circle.c    /* Implementation of the Circle class. */
 ```
 
+## Arithmetic Expressions
+
+need **lex** and **yacc** , some resources:
+
+[lex 与 yacc](https://book.douban.com/subject/1105363/)
+
 
 # exercise
 
