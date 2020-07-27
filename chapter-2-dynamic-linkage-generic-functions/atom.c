@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <string.h>
 
 #include "String.h"
 #include "new.h"
@@ -46,6 +47,11 @@ static void *String_ctor(void *_self, va_list *app)
 
   self->next = ring->next, ring->next = self;
   self->count = 1;
+
+  self->text = malloc(strlen(text) + 1);
+  assert(self->text);
+  strcpy(self->text, text);
+  return self;
 }
 
 static void *String_dtor(void *_self)
@@ -69,6 +75,8 @@ static void *String_dtor(void *_self)
     }
     p->next = self->next;
   }
+  free(self->text), self->text = 0;
+  return self;
 }
 
 static int String_differ(const void *self, const void *b)
