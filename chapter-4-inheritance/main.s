@@ -14,15 +14,17 @@ main:
 	movl	%edi, -20(%rbp)
 	movq	%rsi, -32(%rbp)
 	jmp	.L2
-.L6:
+.L7:
 	movq	-32(%rbp), %rax
 	movq	(%rax), %rax
 	movzbl	(%rax), %eax
 	movsbl	%al, %eax
-	cmpl	$112, %eax
+	cmpl	$99, %eax
 	je	.L4
+	cmpl	$112, %eax
+	je	.L5
 	jmp	.L2
-.L4:
+.L5:
 	movq	Point(%rip), %rax
 	movl	$2, %edx
 	movl	$1, %esi
@@ -30,7 +32,18 @@ main:
 	movl	$0, %eax
 	call	new
 	movq	%rax, -8(%rbp)
+	jmp	.L6
+.L4:
+	movq	Circle(%rip), %rax
+	movl	$3, %ecx
+	movl	$2, %edx
+	movl	$1, %esi
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	new
+	movq	%rax, -8(%rbp)
 	nop
+.L6:
 	movq	-8(%rbp), %rax
 	movq	%rax, %rdi
 	call	draw
@@ -50,7 +63,7 @@ main:
 	movq	-32(%rbp), %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	jne	.L6
+	jne	.L7
 	movl	$0, %eax
 	leave
 	.cfi_def_cfa 7, 8
