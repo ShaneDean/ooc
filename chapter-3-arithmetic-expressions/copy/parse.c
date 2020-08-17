@@ -25,6 +25,8 @@ static enum tokens scan(const char *buf)
   {
     errno = 0;
     token = NUMBER, number = strtod(bp, (char **)&bp);
+    if (errno == ERANGE)
+      error("bad value : %s", strerror(errno));
   }
   else
     token = *bp ? *bp++ : 0;
@@ -118,6 +120,7 @@ int main(void)
     ++errors;
 
   while (fgets(buf, sizeof buf, stdin))
+  {
     if (scan(buf))
     {
       void *e = sum();
@@ -126,6 +129,7 @@ int main(void)
       process(e);
       delete (e);
     }
+  }
 
   return errors > 0;
 }
