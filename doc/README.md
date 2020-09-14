@@ -28,9 +28,13 @@ on them based on their types.
 
 ## Arithmetic Expressions
 
-need **lex** and **yacc** , some resources:
+don't need **lex** and **yacc** , some resources:
 
 [lex 与 yacc](https://book.douban.com/subject/1105363/)
+
+
+## Inheritance Code Reuse and Refinement
+
 
 
 # exercise
