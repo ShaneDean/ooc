@@ -8,6 +8,27 @@
 
 #include "parse.h"
 #include "value.h"
+#include "mathlib.h"
+#include "Var.h"
+
+#include "Name.h"
+#include "Name_r.h"
+
+static void initNames(void)
+{
+  static const struct Name names[] = {
+      {0, "let", LET},
+      {0}};
+  const struct Name *np;
+
+  for (np = names; np->name; ++np)
+    install(np);
+}
+
+#define ALNUM "ABCDEFGHIJKLMNOPQRSTUVWXYZ" \
+              "abcdefghijklmnopqrstuvwxyz" \
+              "_"                          \
+              "0123456789"
 
 static enum tokens token;
 static double number;
@@ -27,6 +48,16 @@ static enum tokens scan(const char *buf)
     token = NUMBER, number = strtod(bp, (char **)&bp);
     if (errno == ERANGE)
       error("bad value : %s", strerror(errno));
+  }
+  else if (isalpha(*bp & 0xff) || *bp == '_')
+  {
+    char buf[BUFSIZ];
+    int len = strspn(bp, ALNUM);
+    if (len > BUFSIZ)
+      error("name to long: %-.10s...", bp);
+
+    strncpy(buf, bp, len), buf[len] = '\0', bp += len;
+    token = screen(buf);
   }
   else
     token = *bp ? *bp++ : 0;
@@ -52,6 +83,21 @@ static void *factor(void)
   case NUMBER:
     result = new (Value, number);
     break;
+  case CONST:
+  case VAR:
+    result = symbol;
+    break;
+  case MATH:
+  {
+    const struct Name *fp = symbol;
+    if (scan(0) != '(')
+      error("expecting (");
+    scan(0);
+    result = new (Math, fp, sum());
+    if (token != ')')
+      error("expecting )");
+    break;
+  }
   case '(':
     scan(0);
     result = sum();
@@ -110,12 +156,35 @@ static void *sum(void)
   }
 }
 
+static void *stmt(void)
+{
+  void *result;
+  switch (token)
+  {
+  case LET:
+    if (scan(0) != VAR)
+      error("bad assignment");
+    result = symbol;
+    if (scan(0) != '=')
+      error("expecting = ");
+    scan(0);
+    return new (Assign, result, sum());
+  default:
+    return sum();
+  }
+}
+
 static jmp_buf onError;
 
 int main(void)
 {
   volatile int errors = 0;
   char buf[BUFSIZ];
+
+  initNames();
+  initConst();
+  initMath();
+
   if (setjmp(onError))
     ++errors;
 
@@ -123,7 +192,7 @@ int main(void)
   {
     if (scan(buf))
     {
-      void *e = sum();
+      void *e = stmt();
       if (token)
         error("trash after sum");
       process(e);

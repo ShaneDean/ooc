@@ -3,7 +3,12 @@
 
 enum tokens
 {
-  NUMBER = 'n'
+  NUMBER = 'n',
+  CONST = 'c',
+  MATH = 'm',
+  VAR = 'v',
+
+  LET = 'l'
 };
 
 void error(const char *fmt, ...);
