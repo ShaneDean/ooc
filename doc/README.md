@@ -47,6 +47,14 @@ gcc parse.c binary.c Var.c Name.c value.c mathlib.c -lm
 
 introduce **MetaClass**
 
+```shell
+# any
+gcc Object.c  any.c
+# points
+gcc Object.c Point.c points.c
+# circles
+gcc Object.c Circle.c Point.c circles.c
+```
 
 
 
