@@ -40,8 +40,14 @@ don't need **lex** and **yacc** , some resources:
 
 need add -lm in gcc cli, [why](https://stackoverflow.com/questions/5005363/undefined-reference-to-sin)
 ```shell
-gcc parse.c binary.c Var.c Name.c Value.c mathlib.c -lm
+gcc parse.c binary.c Var.c Name.c value.c mathlib.c -lm
 ```
+
+## class hierarchy
+
+introduce **MetaClass**
+
+
 
 
 # exercise
