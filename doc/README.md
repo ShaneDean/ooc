@@ -36,6 +36,13 @@ don't need **lex** and **yacc** , some resources:
 ## Inheritance Code Reuse and Refinement
 
 
+## programing savvy symbol table
+
+need add -lm in gcc cli, [why](https://stackoverflow.com/questions/5005363/undefined-reference-to-sin)
+```shell
+gcc parse.c binary.c Var.c Name.c Value.c mathlib.c -lm
+```
+
 
 # exercise
 

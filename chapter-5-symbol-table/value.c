@@ -1,17 +1,10 @@
 #include <assert.h>
-#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "parse.h"
 #include "value.h"
-
-struct Type
-{
-  void *(*new)(va_list ap);
-  double (*exec)(const void *tree);
-  void (*delete)(void *tree);
-};
+#include "value_r.h"
 
 void *new (const void *type, ...)
 {
@@ -28,7 +21,7 @@ void *new (const void *type, ...)
   return result;
 }
 
-static double exec(const void *tree)
+double exec(const void *tree)
 {
   assert(tree && *(struct Type **)tree && (*(struct Type **)tree)->exec);
 
@@ -93,13 +86,7 @@ static void freeUn(void *tree)
   free(tree);
 }
 
-struct Bin
-{
-  const void *type;
-  void *left, *right;
-};
-
-static void *mkBin(va_list ap)
+void *mkBin(va_list ap)
 {
   struct Bin *node = malloc(sizeof(struct Bin));
 
@@ -136,7 +123,7 @@ static double doDiv(const void *tree)
   return left / right;
 }
 
-static void freeBin(void *tree)
+void freeBin(void *tree)
 {
   delete (((struct Bin *)tree)->left);
   delete (((struct Bin *)tree)->right);
